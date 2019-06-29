@@ -1,0 +1,15 @@
+E:\HK6\Design and Arch\HandleData\HandleData\bin\Debug\HandleData.exe.config
+E:\HK6\Design and Arch\HandleData\HandleData\bin\Debug\HandleData.exe
+E:\HK6\Design and Arch\HandleData\HandleData\bin\Debug\HandleData.pdb
+E:\HK6\Design and Arch\HandleData\HandleData\obj\Debug\HandleData.csprojAssemblyReference.cache
+E:\HK6\Design and Arch\HandleData\HandleData\obj\Debug\HandleData.Form1.resources
+E:\HK6\Design and Arch\HandleData\HandleData\obj\Debug\HandleData.Properties.Resources.resources
+E:\HK6\Design and Arch\HandleData\HandleData\obj\Debug\HandleData.csproj.GenerateResource.cache
+E:\HK6\Design and Arch\HandleData\HandleData\obj\Debug\HandleData.csproj.CoreCompileInputs.cache
+E:\HK6\Design and Arch\HandleData\HandleData\obj\Debug\HandleData.exe
+E:\HK6\Design and Arch\HandleData\HandleData\obj\Debug\HandleData.pdb
+E:\HK6\Design and Arch\HandleData\HandleData\bin\Debug\Newtonsoft.Json.dll
+E:\HK6\Design and Arch\HandleData\HandleData\bin\Debug\Newtonsoft.Json.xml
+E:\HK6\Design and Arch\HandleData\HandleData\obj\Debug\HandleData.csproj.CopyComplete
+E:\HK6\Design and Arch\HandleData\HandleData\bin\Debug\System.Net.Http.Formatting.dll
+E:\HK6\Design and Arch\HandleData\HandleData\bin\Debug\System.Net.Http.Formatting.xml
