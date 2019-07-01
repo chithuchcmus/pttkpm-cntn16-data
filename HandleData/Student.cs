@@ -40,11 +40,11 @@ namespace HandleData
             String[] elements = System.Text.RegularExpressions.Regex.Split(infoStudent, pattern);
             if(elements != null && elements.Length == 6)
             {
-                s.name = elements[0];
-                s.mssv = elements[1];
-                s.password = elements[2];
-                s.faculty_short = elements[3];
-                s.program_short = elements[4];
+                s.name = elements[0].ToLower();
+                s.mssv = elements[1].ToLower();
+                s.password = elements[2].ToLower();
+                s.faculty_short = elements[3].ToLower();
+                s.program_short = elements[4].ToLower();
                 s.year = int.Parse(elements[5]);
                 return s;
             }

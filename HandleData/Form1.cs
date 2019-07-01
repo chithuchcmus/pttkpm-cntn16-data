@@ -23,13 +23,13 @@ namespace HandleData
         private void Form1_Load(object sender, EventArgs e)
         {
             setValueToCombobox();
-
+            Subject subject = new Subject();
         }
         private void setValueToCombobox()
         {
 
-            cb_loaidulieu.Items.Add("Student");
-            cb_loaidulieu.Items.Add("Subject");
+            cb_loaidulieu.Items.Add("Students");
+            cb_loaidulieu.Items.Add("Subjects");
             cb_loaidulieu.SelectedIndex = 0;
             cb_url.Items.Add("https://pttkpm-cntn16-portal.herokuapp.com/");
             cb_url.SelectedIndex = 0;

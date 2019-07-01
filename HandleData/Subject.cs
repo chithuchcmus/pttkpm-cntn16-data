@@ -3,31 +3,46 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace HandleData
 {
     class Subject
     {
-        public String tenMonHoc { get; set; }
-        public int soTinChi { get; set; }
-        public int soSinhVien { get; set; }
-        public int namHoc { get; set; }
-        public int hocKi { get; set; }
-        public String khoa { get; set; }
-        public String loaiHocPhan { get; set; }
-        public List<String> dsMonHocTienQuyet { get; set; }
-
+        public String name { get; set; }
+        public int value { get; set; }
+        public int max_student { get; set; }
+        public int year { get; set; }
+        public int semester { get; set; }
+        public String faculty_short { get; set; }
+        [JsonProperty(PropertyName = "class")]
+        public String _class { get; set; }
+        public String type_sub_short { get; set; }
+        public String mhp { get; set; }
+        public Boolean status { get; set;}
+        public int weekday { get; set; }
+        public int from_period { get; set; }
+        public int to_period { get; set; }
+        public String program_short { get; set; }
+        public int can_enroll { get; set; }
         public Subject()
         {
-            tenMonHoc = "";
-            soTinChi = 0;
-            soSinhVien = 0;
-            namHoc = 0;
-            hocKi = 0;
-            khoa = "";
-            loaiHocPhan = "";
-            dsMonHocTienQuyet = null;
-        }
+            name = "";
+            value = 0;
+            max_student = 0;
+            year = 0;
+            semester = 0;
+            faculty_short = "";
+            _class = "";
+            type_sub_short = "";
+            mhp = "";
+            status = true;
+            weekday = 0;
+            from_period = 0;
+            to_period = 0;
+            program_short = "";
+            can_enroll = 0;
+    }
         public static Subject getSubjectFromString(String infoSubject)
         {
             String pattern = @";|&";
@@ -36,34 +51,26 @@ namespace HandleData
             if (elements != null && elements.Length >=6)
             {
                 Subject subject = new Subject();
-                subject.tenMonHoc = elements[0];
-                subject.soTinChi = Int32.Parse(elements[1]);
-                subject.soSinhVien = Int32.Parse(elements[2]);
-                subject.namHoc = Int32.Parse(elements[3]);
-                subject.hocKi = Int32.Parse(elements[4]);
-                subject.khoa = elements[5];
-                subject.loaiHocPhan = elements[6];
-                subject.dsMonHocTienQuyet = new List<String>();
-                int index = 7;
-                if(index < lengthElement)
-                {
-                    while (index < lengthElement)
-                    {
-                        subject.dsMonHocTienQuyet.Add(elements[index]);
-                        index++;
-                    }
-                }
+                subject.name = elements[0].ToLower();
+                subject.value = Int32.Parse(elements[1]);
+                subject.max_student = Int32.Parse(elements[2]);
+                subject.year = Int32.Parse(elements[3]);
+                subject.semester = Int32.Parse(elements[4]);
+                subject.faculty_short = elements[5].ToLower();
+                subject._class = elements[6].ToLower();
+                subject.type_sub_short = elements[7].ToLower();
+                subject.mhp = elements[8].ToLower();
+                subject.status = Convert.ToBoolean(elements[9].ToLower());
+                subject.weekday = Int32.Parse(elements[10]);
+                subject.from_period = Int32.Parse(elements[11]);
+                subject.to_period = Int32.Parse(elements[12]);
+                subject.program_short = elements[13].ToLower();
+                subject.can_enroll = Int32.Parse(elements[14]);
                 return subject;
             }
             return null;
         }
 
-        public static String getStringFromSubject(Subject subject)
-        {
-            return subject.tenMonHoc + subject.soTinChi.ToString()
-                + subject.soSinhVien.ToString() + subject.khoa.ToString()
-                + subject.dsMonHocTienQuyet[0] + subject.dsMonHocTienQuyet[1];
-        }
         public static List<Subject> GetSubjectsFromListString( List<String> infoSubjects)
         {
             List<Subject> subjects = new List<Subject>();

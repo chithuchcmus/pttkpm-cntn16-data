@@ -14,10 +14,10 @@ namespace HandleData
     {
         private static HttpClient client = new HttpClient();
 
-        static async Task<String> CreateProductAsync(Object obj)
+        static async Task<String> CreateProductAsync(Object obj,String type)
         {
 
-            var response = await client.PostAsJsonAsync("api/students", obj);
+            var response = await client.PostAsJsonAsync(type.ToLower(), obj);
             String statusRespone = response.Content.ReadAsStringAsync().Result;
             dynamic json = JObject.Parse(statusRespone);
             return json.status;
@@ -26,37 +26,19 @@ namespace HandleData
         public static async Task SendDataToServer(String sourceDataUrl,String type,String serverUrl)
         {
 
-            configConectToServer(serverUrl);
+            // Update port # in the following line.
+            client.BaseAddress = new Uri(serverUrl);
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/json"));
             try
             {
                 List<String> status = new List<String>();
-                if (type == "Subject")
+                List<Object> data = getListObjectFromName(type, sourceDataUrl);
+                foreach (Object obj in data)
                 {
-                    List<Subject> subjects = Subject.GetSubjectsFromFile(sourceDataUrl);
-                    if(subjects.Count <= 0)
-                    {
-                        MessageBox.Show("Sai kiểu dữ liệu ở File!\n, vui lòng tùy chỉnh file theo đúng định dạng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-                    foreach (Subject subject in subjects)
-                    {
-                        String url = await CreateProductAsync(subject);
-                        status.Add(url);
-                    }
-                }
-                else if(type == "Student")
-                {
-                    List<Student> students = Student.getStudentsFromFile(sourceDataUrl);
-                    if(students.Count <= 0)
-                    {
-                        MessageBox.Show("Sai kiểu dữ liệu ở File!\n, vui lòng tùy chỉnh file theo đúng định dạng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-                    foreach (Student student in students)
-                    {
-                        String url = await CreateProductAsync(student);
-                        status.Add(url);
-                    }
+                    String respone = await CreateProductAsync(obj, type);
+                    status.Add(respone);
                 }
                 notifiResponeFromServer(status);
             }
@@ -65,14 +47,35 @@ namespace HandleData
 
             }
         }
-
-        private static void configConectToServer(string serverUrl)
+        private static List<Object> getListObjectFromName(String type, String url)
         {
-            // Update port # in the following line.
-            client.BaseAddress = new Uri(serverUrl);
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
+            List<Object> list = new List<object>();
+            List<String> infoSubject = ReadFile.readDataFromFile(url);
+            if (type == "Subjects")
+            {
+                for(int i=0; i< infoSubject.Count; i++)
+                {
+                    list.Add(Subject.getSubjectFromString(infoSubject[i]));
+                }
+                if (list.Count <= 0)
+                {
+                    MessageBox.Show("Sai kiểu dữ liệu ở File!\n, vui lòng tùy chỉnh file theo đúng định dạng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return null;
+                }
+            }
+            else if (type == "Students")
+            {
+                for (int i = 0; i < infoSubject.Count; i++)
+                {
+                    list.Add(Student.getStudentFromString(infoSubject[i]));
+                }
+                if (list.Count <= 0)
+                {
+                    MessageBox.Show("Sai kiểu dữ liệu ở File!\n, vui lòng tùy chỉnh file theo đúng định dạng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return null;
+                }
+            }
+            return list;
         }
 
         private static void  notifiResponeFromServer(List<String> noti)

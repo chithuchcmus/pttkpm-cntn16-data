@@ -134,7 +134,7 @@
             this.Controls.Add(this.cb_loaidulieu);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
-            this.Text = "ToolSendDataToServer";
+            this.Text = "Create Data";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
